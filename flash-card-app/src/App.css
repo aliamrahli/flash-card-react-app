@@ -1,0 +1,39 @@
+
+
+.Introduction {
+    font-size: 20px;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+
+.ProjectListItem {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .ProjectLink {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 10px;
+  }  
+
+
+  .ProjectLink:hover {
+    background-color: #45a049;
+  }
+
+  .ProjectList {
+    list-style-type: none;
+    padding: 0;
+  }
