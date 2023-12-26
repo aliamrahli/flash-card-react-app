@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import FlashCards from './FlashCards';
 
 const projects = [
   {
@@ -43,6 +44,7 @@ function App() {
     <div className="App">
     <main>
       <Home />
+      <FlashCards />
     </main>
     </div>
   );
