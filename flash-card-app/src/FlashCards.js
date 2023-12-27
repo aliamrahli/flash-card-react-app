@@ -13,7 +13,9 @@ const FlashCard = ({ front, back, status, lastModified }) => (
 
 const FlashCards = () => {
   
-  const flashCardsData = [
+  const [newCard, setNewCard] = useState({ front: '', back: '', status: 'Noted' });
+  const [flashCards, setFlashCards] = useState([
+    // Example flash cards data
     {
       front: 'What is React?',
       back: 'React is a JavaScript library for building user interfaces.',
@@ -21,33 +23,64 @@ const FlashCards = () => {
       lastModified: '2023-01-01 12:30 PM',
     },
     {
-        front: 'What is React?',
-        back: 'React is a JavaScript library for building user interfaces.',
-        status: 'Learned',
-        lastModified: '2023-01-01 12:30 PM',
-      },
-      {
-        front: 'What is React?',
-        back: 'React is a JavaScript library for building user interfaces.',
-        status: 'Learned',
-        lastModified: '2023-01-01 12:30 PM',
-      },
-      {
-        front: 'What is React?',
-        back: 'React is a JavaScript library for building user interfaces.',
-        status: 'Learned',
-        lastModified: '2023-01-01 12:30 PM',
-      },
+      front: 'What is React?',
+      back: 'React is a JavaScript library for building user interfaces.',
+      status: 'Learned',
+      lastModified: '2023-01-01 12:30 PM',
+    },
+    {
+      front: 'What is React?',
+      back: 'React is a JavaScript library for building user interfaces.',
+      status: 'Learned',
+      lastModified: '2023-01-01 12:30 PM',
+    },
+    // Add more flash cards as needed
+  ]);
     
-  ];
+  
+  const handleInputChange = (e) => {
+    setNewCard({ ...newCard, [e.target.name]: e.target.value });
+  };
+
+  const handleAddCard = () => {
+    setFlashCards([...flashCards, { ...newCard, lastModified: getCurrentDateTime() }]);
+    setNewCard({ front: '', back: '', status: 'Noted' });
+  };
+
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    return `${now.toISOString().slice(0, 19).replace('T', ' ')} ${now.toLocaleTimeString()}`;
+  };
 
   return (
     <div className="FlashCards">
       <h2>Flash Cards</h2>
       <div className="FlashCardContainer">
-        {flashCardsData.map((card, index) => (
+        {flashCards.map((card, index) => (
           <FlashCard key={index} {...card} />
         ))}
+      </div>
+
+      {/* Form to add new flash cards */}
+      <div className="AddCardForm">
+        <h3>Add New Flash Card</h3>
+        <div>
+          <label>Front:</label>
+          <input type="text" name="front" value={newCard.front} onChange={handleInputChange} />
+        </div>
+        <div>
+          <label>Back:</label>
+          <input type="text" name="back" value={newCard.back} onChange={handleInputChange} />
+        </div>
+        <div>
+          <label>Status:</label>
+          <select name="status" value={newCard.status} onChange={handleInputChange}>
+            <option value="Learned">Learned</option>
+            <option value="Want to Learn">Want to Learn</option>
+            <option value="Noted">Noted</option>
+          </select>
+        </div>
+        <button onClick={handleAddCard}>Add Card</button>
       </div>
     </div>
   );
