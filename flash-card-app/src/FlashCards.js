@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FlashCard = ({ front, back, status, lastModified }) => (
+const FlashCard = ({ id, front, back, status, lastModified, onEdit, onDelete }) => (
   <div className="FlashCard">
     <div className="Front">{front}</div>
     <div className="Back">
@@ -8,27 +8,19 @@ const FlashCard = ({ front, back, status, lastModified }) => (
       <p>Status: {status}</p>
       <p>Last Modified: {lastModified}</p>
     </div>
+    <div className="CardActions">
+      <button onClick={() => onEdit(id)}>Edit</button>
+      <button onClick={() => onDelete(id)}>Delete</button>
+    </div>
   </div>
 );
 
 const FlashCards = () => {
-  
   const [newCard, setNewCard] = useState({ front: '', back: '', status: 'Noted' });
   const [flashCards, setFlashCards] = useState([
     // Example flash cards data
     {
-      front: 'What is React?',
-      back: 'React is a JavaScript library for building user interfaces.',
-      status: 'Learned',
-      lastModified: '2023-01-01 12:30 PM',
-    },
-    {
-      front: 'What is React?',
-      back: 'React is a JavaScript library for building user interfaces.',
-      status: 'Learned',
-      lastModified: '2023-01-01 12:30 PM',
-    },
-    {
+      id: 1,
       front: 'What is React?',
       back: 'React is a JavaScript library for building user interfaces.',
       status: 'Learned',
@@ -36,15 +28,31 @@ const FlashCards = () => {
     },
     // Add more flash cards as needed
   ]);
-    
-  
+
+  const [editableCard, setEditableCard] = useState(null);
+
   const handleInputChange = (e) => {
     setNewCard({ ...newCard, [e.target.name]: e.target.value });
   };
 
   const handleAddCard = () => {
-    setFlashCards([...flashCards, { ...newCard, lastModified: getCurrentDateTime() }]);
+    setFlashCards([...flashCards, { id: flashCards.length + 1, ...newCard, lastModified: getCurrentDateTime() }]);
     setNewCard({ front: '', back: '', status: 'Noted' });
+  };
+
+  const handleEdit = (id) => {
+    setEditableCard(id);
+  };
+
+  const handleSaveEdit = (id, updatedCard) => {
+    setFlashCards((prevCards) =>
+      prevCards.map((card) => (card.id === id ? { ...card, ...updatedCard, lastModified: getCurrentDateTime() } : card))
+    );
+    setEditableCard(null);
+  };
+
+  const handleDelete = (id) => {
+    setFlashCards((prevCards) => prevCards.filter((card) => card.id !== id));
   };
 
   const getCurrentDateTime = () => {
@@ -56,8 +64,13 @@ const FlashCards = () => {
     <div className="FlashCards">
       <h2>Flash Cards</h2>
       <div className="FlashCardContainer">
-        {flashCards.map((card, index) => (
-          <FlashCard key={index} {...card} />
+        {flashCards.map((card) => (
+          <FlashCard
+            key={card.id}
+            {...card}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         ))}
       </div>
 
