@@ -7,8 +7,6 @@ const FlashCard = ({ id, front, back, status, lastModified, onEdit, onDelete }) 
       <p>{back}</p>
       <p>Status: {status}</p>
       <p>Last Modified: {lastModified}</p>
-    </div>
-    <div className="CardActions">
       <button onClick={() => onEdit(id)}>Edit</button>
       <button onClick={() => onDelete(id)}>Delete</button>
     </div>
@@ -74,7 +72,6 @@ const FlashCards = () => {
         ))}
       </div>
 
-      {/* Form to add new flash cards */}
       <div className="AddCardForm">
         <h3>Add New Flash Card</h3>
         <div>
