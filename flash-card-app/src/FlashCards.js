@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EditForm from './EditForm';
 
 const FlashCard = ({ id, front, back, status, lastModified, onEdit, onDelete }) => {
@@ -55,6 +55,14 @@ const FlashCards = () => {
     // Add more flash cards as needed
   ]);
 
+  useEffect(() => {
+    // Fetch flash cards from the json-server endpoint
+    fetch('http://localhost:3000/cards')
+      .then((response) => response.json())
+      .then((data) => setFlashCards(data))
+      .catch((error) => console.error('Error fetching flash cards:', error));
+  }, []); 
+
 
   const handleInputChange = (e) => {
     setNewCard({ ...newCard, [e.target.name]: e.target.value });
@@ -79,6 +87,17 @@ const FlashCards = () => {
     setFlashCards((prevCards) =>
       prevCards.map((card) => (card.id === id ? { ...card, ...editedCard, lastModified: getCurrentDateTime() } : card))
     );
+
+    fetch(`http://localhost:3000/cards/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...editedCard, lastModified: getCurrentDateTime() }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log('Flash card updated successfully:', data))
+      .catch((error) => console.error('Error updating flash card:', error));
   };
 
   return (
