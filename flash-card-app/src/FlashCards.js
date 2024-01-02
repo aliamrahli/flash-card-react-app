@@ -43,23 +43,13 @@ const FlashCard = ({ id, front, back, status, lastModified, onEdit, onDelete }) 
 
 const FlashCards = () => {
   const [newCard, setNewCard] = useState({ front: '', back: '', status: 'Noted' });
-  const [flashCards, setFlashCards] = useState([
-    // Example flash cards data
-    {
-      id: 1,
-      front: 'What is React?',
-      back: 'React is a JavaScript library for building user interfaces.',
-      status: 'Learned',
-      lastModified: '2023-01-01 12:30 PM',
-    },
-    // Add more flash cards as needed
-  ]);
+  const [flashCards, setFlashCards] = useState([]);
 
   useEffect(() => {
     // Fetch flash cards from the json-server endpoint
     fetch('http://localhost:3000/cards')
       .then((response) => response.json())
-      .then((data) => setFlashCards(data))
+      .then((data) => setFlashCards(data.cards))
       .catch((error) => console.error('Error fetching flash cards:', error));
   }, []); 
 

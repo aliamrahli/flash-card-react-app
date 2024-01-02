@@ -15,14 +15,14 @@ const App = () => (
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/flashcards">Flash Cards</Link>
+              <Link to="/cards">Flash Cards</Link>
             </li>
           </ul>
         </nav>
       </header>
       <main>
         <Routes>
-          <Route path="/flashcards" element={<FlashCards />} />
+          <Route path="/cards" element={<FlashCards />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </main>
