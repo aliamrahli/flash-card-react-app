@@ -2,25 +2,31 @@
   "cards": [
     {
       "id": 1,
-      "front": "What is React?",
-      "back": "React is a JavaScript library for building user interfaces.",
+      "front": "What is history? car",
+      "back": "History is the most boring subject",
       "status": "Learned",
-      "lastModified": "2023-01-01 12:30 PM"
+      "lastModified": "03-01-2024 23:06:11"
     },
     {
       "id": 2,
-      "front": "What is React?",
-      "back": "React is a JavaScript library for building user interfaces.",
-      "status": "Learned",
-      "lastModified": "2023-01-01 12:30 PM"
+      "front": "car",
+      "back": "",
+      "status": "Noted",
+      "lastModified": "03-01-2024 22:25:37"
     },
     {
       "id": 3,
-      "front": "What is React?",
-      "back": "React is a JavaScript library for building user interfaces.",
+      "front": "zapple",
+      "back": "car",
       "status": "Learned",
-      "lastModified": "2023-01-01 12:30 PM"
+      "lastModified": "03-01-2024 23:05:54"
+    },
+    {
+      "id": 4,
+      "front": "What is Physics?",
+      "back": "Physics is a bullshit",
+      "status": "Want to Learn",
+      "lastModified": "03-01-2024 22:26:04"
     }
   ]
 }
-
