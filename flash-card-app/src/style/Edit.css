@@ -1,0 +1,22 @@
+.EditForm input {
+    height: 5px;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.EditForm button {
+    height: 40px;
+    width: 80px;
+    font-size: 15px;
+}
+
+.EditForm .select {
+    font-size: 17px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+.EditForm select {
+    margin-bottom: 10px;
+    font-size: 14px;
+}

@@ -1,0 +1,82 @@
+
+
+.Introduction {
+    font-size: 20px;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+
+.ProjectListItem {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .ProjectLink {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 10px;
+  }  
+
+
+  .ProjectLink:hover {
+    background-color: #45a049;
+  }
+
+  .ProjectList {
+    list-style-type: none;
+    padding: 0;
+  }
+
+
+/* Add flash cards*/
+
+
+.App-header {
+  background-color: #282c34;
+  padding: 1rem;
+  border-bottom: 2px solid #61dafb; /* Add a border at the bottom */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav li {
+  margin-right: 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+nav a:hover {
+  background-color: #61dafb;
+  color: #44188b;
+}

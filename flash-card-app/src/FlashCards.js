@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import EditForm from './EditForm';
+import './style/FlashCard.css';
 
-const FlashCard = ({ id, front, back, status, lastModified, onEdit, onDelete }) => {
+const FlashCard = ({ id, question, answer, desc, status, lastModified, onEdit, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
-
-  const handleEditClick = () => {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const handleEditClick = (e) => {
     setIsEditing(true);
+    e.stopPropagation();
   };
 
   const handleCancelEdit = () => {
@@ -16,33 +18,48 @@ const FlashCard = ({ id, front, back, status, lastModified, onEdit, onDelete }) 
     onEdit(id, editedCard);
     setIsEditing(false);
   };
+  const handleCardClick = () => {
+    setIsFlipped(!isFlipped);
+  };
+  // const handleButtonClick = (e) => {
+  //   e.stopPropagation();
+  // };
 
   return (
-  <div className="FlashCard">
-    <div className="Front">{front}</div>
-    <div className="Back">
-      <p>{back}</p>
-      <p>Status: {status}</p>
-      <p>Last Modified: {lastModified}</p>
-      {!isEditing && (
-          <div>
-            <button onClick={handleEditClick}>Edit</button>
-            <button onClick={() => onDelete(id)}>Delete</button>
-          </div>
-        )}
-        {isEditing && (
-          <EditForm
-            card={{ id, front, back, status, lastModified }}
-            onSave={handleSaveEdit}
-            onCancel={handleCancelEdit}
-          />
-        )}
+    <div className={`FlashCard${isFlipped ? ' flipped' : ''}${isEditing ? ' editing' : ''}`} onClick={handleCardClick}>
+      <div className="card-content">
+        <div className="front">
+          <div className="question">{question}</div>
+        </div>
+        <div className="back">
+          <p>{answer}</p>
+          <p>{desc}</p>
+          <p>Status: {status}</p>
+          <p>Last Modified: {lastModified}</p>
+          {!isEditing && (
+            <div className="buttons">
+              <button onClick={handleEditClick}>
+                Edit
+              </button>
+              <button onClick={() => onDelete(id)}>
+                Delete
+              </button>
+            </div>
+          )}
+          {isEditing && (
+            <EditForm
+              card={{ id, question, answer, desc, status, lastModified }}
+              onSave={handleSaveEdit}
+              onCancel={handleCancelEdit}
+            />
+          )}
+        </div>
+      </div>
     </div>
-  </div>
-)};
+  )};
 
 const FlashCards = () => {
-  const [newCard, setNewCard] = useState({ front: '', back: '', status: 'Noted' });
+  const [newCard, setNewCard] = useState({ question: '', answer: '', desc:'', status: 'Noted' });
   const [flashCards, setFlashCards] = useState(null);
   const [originalFlashCards, setOriginalFlashCards] = useState(null);
   const [searchText, setSearchText] = useState('');
@@ -53,15 +70,19 @@ const FlashCards = () => {
     const sortedCards = [...cards];
 
     switch (sortBy) {
-      case 'front':
-        sortedCards.sort((a, b) => a.front.localeCompare(b.front));
+      case 'question':
+        sortedCards.sort((a, b) => a.question.localeCompare(b.question));
         break;
-      case 'back':
-        sortedCards.sort((a, b) => a.back.localeCompare(b.back));
+      case 'answer':
+        sortedCards.sort((a, b) => a.answer.localeCompare(b.answer));
         break;
+      case 'status':
+          sortedCards.sort((a, b) => a.status.localeCompare(b.status));
+          break;
       case 'status':
         sortedCards.sort((a, b) => a.status.localeCompare(b.status));
         break;
+
       case 'lastModified':
         sortedCards.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
         break;
@@ -181,26 +202,25 @@ const FlashCards = () => {
     const searchTextLowerCase = searchText.toLowerCase();
     const filteredCards = originalFlashCards.filter(
       (card) =>
-        (card.front.toLowerCase().includes(searchTextLowerCase) ||
-          card.back.toLowerCase().includes(searchTextLowerCase)) &&
+        (card.question.toLowerCase().includes(searchTextLowerCase) ||
+          card.answer.toLowerCase().includes(searchTextLowerCase)||
+          card.desc.toLowerCase().includes(searchTextLowerCase)) &&
         (filterStatus === '' || card.status.toLowerCase() === filterStatus.toLowerCase())
     );
     setFlashCards(filteredCards);
     sortFlashCards(filteredCards,sortOption);
   };
 
-  const clearSearch = () => {
-    setSearchText('');
-    fetchFlashCards(); // Reload and sort all flash cards
-  };
+
   const handleStatusFilter = (e) => {
     const newFilterStatus = e.target.value;
     const searchTextLowerCase = searchText.toLowerCase();
     setFilterStatus(newFilterStatus);
     const filteredCards = originalFlashCards.filter(
       (card) =>
-        (card.front.toLowerCase().includes(searchTextLowerCase) ||
-          card.back.toLowerCase().includes(searchTextLowerCase)) &&
+        (card.question.toLowerCase().includes(searchTextLowerCase) ||
+          card.answer.toLowerCase().includes(searchTextLowerCase) ||
+          card.desc.toLowerCase().includes(searchTextLowerCase)) &&
         (newFilterStatus === '' || card.status.toLowerCase() === newFilterStatus.toLowerCase())
     );
     sortFlashCards(filteredCards,sortOption);
@@ -211,6 +231,9 @@ const FlashCards = () => {
     setSortOption(newSortOption);
     sortFlashCards(flashCards, newSortOption);
   };
+
+
+  
 
 
   return (
@@ -224,13 +247,13 @@ const FlashCards = () => {
           onChange={(e) => setSearchText(e.target.value)}
         />
         <button onClick={handleSearch}>Search</button>
-        <button onClick={clearSearch}>Clear</button>
       </div>
       <div className="SortAndFilter">
         <label>Sort By:</label>
         <select value={sortOption} onChange={handleSortChange}>
-          <option value="front">Front Text</option>
-          <option value="back">Back Text</option>
+          <option value="question">Question</option>
+          <option value="answer">Answer</option>
+          <option value="desc">Description</option>
           <option value="status">Status</option>
           <option value="lastModified">Last Modified</option>
         </select>
@@ -258,12 +281,16 @@ const FlashCards = () => {
       <div className="AddCardForm">
         <h3>Add New Flash Card</h3>
         <div>
-          <label>Front:</label>
-          <input type="text" name="front" value={newCard.front} onChange={handleInputChange} />
+          <label>Question:</label>
+          <input type="text" name="question" value={newCard.question} onChange={handleInputChange} />
         </div>
         <div>
-          <label>Back:</label>
-          <input type="text" name="back" value={newCard.back} onChange={handleInputChange} />
+          <label>Answer:</label>
+          <input type="text" name="answer" value={newCard.answer} onChange={handleInputChange} />
+        </div>
+        <div>
+          <label>Description:</label>
+          <input type="text" name="desc" value={newCard.desc} onChange={handleInputChange} />
         </div>
         <div>
           <label>Status:</label>

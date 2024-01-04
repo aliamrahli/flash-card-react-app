@@ -1,0 +1,152 @@
+.FlashCards {
+    padding: 20px;
+    background-color: #f5f5f5;
+    margin-top: 30px;
+  }
+  
+  .FlashCardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .FlashCard {
+    position: relative;
+    width: 250px;
+    height: 420px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+    
+  }
+
+  .FlashCard.flipped {
+    transform: rotateY(180deg);
+  }
+
+  /* .FlashCard:hover {
+    transform: rotateY(180deg);
+  } */
+
+  .FlashCard.editing {
+    cursor: default;
+  }
+
+  .FlashCard .card-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .front {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+
+  
+  .FlashCard .front,
+.FlashCard .back {
+    position: absolute;
+    padding: 10px;
+    width: 230px;
+    height: 400px;
+    backface-visibility: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: white;
+  }
+  
+  /* .answer {
+    transform: rotateY(180deg);
+    text-align: left;
+    
+  } */
+
+
+  .FlashCard .back {
+    transform: rotateY(180deg);
+  }
+
+/* Adding card form style*/
+
+.AddCardForm {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .AddCardForm label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .AddCardForm input,
+  .AddCardForm select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .AddCardForm button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .AddCardForm button:hover {
+    background-color: #45a049;
+  }
+
+/* Search, filter and sort*/
+
+.SearchBar {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    width: 450px;
+  }
+  
+  .SearchBar input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 20px;
+  }
+  
+  .SearchBar button {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .SortAndFilter,
+  .StatusFilter {
+    margin-bottom: 20px;
+  }
+  
+  .SortAndFilter,
+  .StatusFilter label {
+    margin-right: 10px;
+  }
+  
+  .SortAndFilter select,
+  .StatusFilter select {
+    margin-left: 20px;
+    padding: 10px;
+    width: 200px;
+  }
+
+  .FlashCard.selected {
+    border: 2px solid #3498db;
+  }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './style/Edit.css'
 
 const EditForm = ({ card, onSave, onCancel }) => {
   const [editedCard, setEditedCard] = useState({ ...card });
@@ -8,23 +8,38 @@ const EditForm = ({ card, onSave, onCancel }) => {
     setEditedCard({ ...editedCard, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
+  const handleEditClick = (e) => {
+    e.stopPropagation();
+  };
+
+  const handleSave = (e) => {
+    setEditedCard({
+      question: '',
+      answer: '',
+      desc: '',
+      status: 'Learned', // You might want to reset the status to a default value
+    });
     onSave(editedCard);
+    e.stopPropagation();
   };
 
   return (
     <div className="EditForm">
       <div>
-        <label>Front:</label>
-        <input type="text" name="front" value={editedCard.front} onChange={handleInputChange} />
+        <label>Question:</label>
+        <input type="text" name="question" value={editedCard.question} onChange={handleInputChange} onClick={handleEditClick}/>
       </div>
       <div>
-        <label>Back:</label>
-        <input type="text" name="back" value={editedCard.back} onChange={handleInputChange} />
+        <label>Answer:</label>
+        <input type="text" name="answer" value={editedCard.answer} onChange={handleInputChange} onClick={handleEditClick} />
       </div>
       <div>
-        <label>Status:</label>
-        <select name="status" value={editedCard.status} onChange={handleInputChange}>
+        <label>Description:</label>
+        <input type="text" name="desc" value={editedCard.desc} onChange={handleInputChange} onClick={handleEditClick}/>
+      </div>
+      <div>
+        <label className='select'>Status:</label>
+        <select name="status" value={editedCard.status} onChange={handleInputChange} onClick={handleEditClick}>
           <option value="Learned">Learned</option>
           <option value="Want to Learn">Want to Learn</option>
           <option value="Noted">Noted</option>
