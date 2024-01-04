@@ -21,9 +21,6 @@ const FlashCard = ({ id, question, answer, desc, status, lastModified, onEdit, o
   const handleCardClick = () => {
     setIsFlipped(!isFlipped);
   };
-  // const handleButtonClick = (e) => {
-  //   e.stopPropagation();
-  // };
 
   return (
     <div className={`FlashCard${isFlipped ? ' flipped' : ''}${isEditing ? ' editing' : ''}`} onClick={handleCardClick}>
@@ -79,15 +76,14 @@ const FlashCards = () => {
       case 'status':
           sortedCards.sort((a, b) => a.status.localeCompare(b.status));
           break;
-      case 'status':
-        sortedCards.sort((a, b) => a.status.localeCompare(b.status));
+      case 'desc':
+        sortedCards.sort((a, b) => a.desc.localeCompare(b.desc));
         break;
 
       case 'lastModified':
         sortedCards.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
         break;
       default:
-        // Default sorting by lastModified
         sortedCards.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
         break;
     }
@@ -113,10 +109,11 @@ const FlashCards = () => {
 
 
 
-  const handleInputChange = (e) => {
+  
+const handleInputChange = (e) => {
     setNewCard({ ...newCard, [e.target.name]: e.target.value });
   };
-
+  
   const handleAddCard = () => {
     const newFlashCard = {
       id: flashCards.length + 1,

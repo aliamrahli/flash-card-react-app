@@ -13,12 +13,6 @@ const EditForm = ({ card, onSave, onCancel }) => {
   };
 
   const handleSave = (e) => {
-    setEditedCard({
-      question: '',
-      answer: '',
-      desc: '',
-      status: 'Learned', // You might want to reset the status to a default value
-    });
     onSave(editedCard);
     e.stopPropagation();
   };
