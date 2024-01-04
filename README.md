@@ -5,8 +5,7 @@
 ```diff 
 + How to install? 
 ```
-To install this program, you can either clone this repository by using git clone https://github.com/aliamrahli/flash-card-react-app.git, or you can download zip file from the main page of repository by clicking green code button. After installing the repository, you only need to add node_modules
-to run the app. You need to have React and Json server installed on your computer.
+Firstly, You need to have React and Json server installed on your computer. To install this program, you can either clone this repository by using git clone https://github.com/aliamrahli/flash-card-react-app.git, or you can download zip file from the main page of repository by clicking green code button. After installing the repository, you only need to add node_modules folder to run the react app. 
 
 ```diff 
 + How to run?
